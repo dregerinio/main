@@ -229,25 +229,36 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
 
     'system_components' => [
-        'Component 1' => [
-            'description' => 'TBD',
-            'url' => 'http://component1.local'
+        'game_1' => [
+            'getter_url' => 'http://component1.local',
+            'setter_url' => 'http://component1.local'
         ],
-        'Component 2' => [
-            'description' => 'TBD',
-            'url' => 'http://component2.local'
+        'game_2' => [
+            'getter_url' => 'http://component2.local',
+            'setter_url' => 'http://component2.local'
         ],
-        'Component 3' => [
-            'description' => 'TBD',
-            'url' => 'http://component3.local'
+        'door_1' => [
+            'getter_url' => 'http://component3.local',
+            'setter_url' => 'http://component3.local'
         ],
-        'Component 4' => [
-            'description' => 'TBD',
-            'url' => 'http://component4.local'
+        'door_2' => [
+            'getter_url' => 'http://component3.local',
+            'setter_url' => 'http://component3.local'
+        ],
+        'door_3' => [
+            'getter_url' => 'http://component3.local',
+            'setter_url' => 'http://component3.local'
+        ],
+        'door_4' => [
+            'getter_url' => 'http://component3.local',
+            'setter_url' => 'http://component3.local'
+        ],
+        'motor' => [
+            'getter_url' => 'http://component3.local',
+            'setter_url' => 'http://component3.local'
         ],
     ]
 ];

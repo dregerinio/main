@@ -17,9 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainController::class, 'home'])
         ->name('home');
 
-Route::get('/init_components', [MainController::class, 'init_components'])
-        ->name('init_components');
-
 Route::get('/get_component_status', [MainController::class, 'get_component_status'])
         ->name('get_component_status');
 
@@ -28,3 +25,21 @@ Route::get('/activate_component/{component_number?}', [MainController::class, 'a
     
 Route::get('/deactivate_component/{component_number?}', [MainController::class, 'deactivate_component'])
         ->name('deactivate_component');
+
+Route::get('/test', [MainController::class, 'test'])
+        ->name('test');
+
+Route::post('/send_pattern', [MainController::class, 'send_pattern'])
+        ->name('send_pattern');
+        
+Route::post('/send_password', [MainController::class, 'send_password'])
+        ->name('send_password');
+
+Route::post('/set_difficulty', [MainController::class, 'set_difficulty'])
+        ->name('set_difficulty');
+
+Route::get('/reset', [MainController::class, 'reset'])
+        ->name('reset');
+
+Route::get('/loop', [MainController::class, 'loop'])
+        ->name('loop');
