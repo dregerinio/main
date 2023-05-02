@@ -9,7 +9,7 @@ use App\Models\System_parameters;
 
 class MainController extends Controller
 {
-    public function home()
+    public function home(Request $request)
     {
         $password = System_parameters::where('parameter', '=', 'password')->first();
         $difficulty = System_parameters::where('parameter', '=', 'difficulty')->first();
@@ -89,6 +89,7 @@ class MainController extends Controller
     }
 
     public function loop(){
+        // get statuses
         $components = [];
         $components_data = Components::all();
         foreach($components_data as $component){

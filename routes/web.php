@@ -13,33 +13,34 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware(['local_user'])->group(function () {
+        Route::get('/', [MainController::class, 'home'])
+                ->name('home');
 
-Route::get('/', [MainController::class, 'home'])
-        ->name('home');
+        Route::get('/get_component_status', [MainController::class, 'get_component_status'])
+                ->name('get_component_status');
 
-Route::get('/get_component_status', [MainController::class, 'get_component_status'])
-        ->name('get_component_status');
+        Route::get('/activate_component/{component_number?}', [MainController::class, 'activate_component'])
+                ->name('activate_component');
 
-Route::get('/activate_component/{component_number?}', [MainController::class, 'activate_component'])
-        ->name('activate_component');
-    
-Route::get('/deactivate_component/{component_number?}', [MainController::class, 'deactivate_component'])
-        ->name('deactivate_component');
+        Route::get('/deactivate_component/{component_number?}', [MainController::class, 'deactivate_component'])
+                ->name('deactivate_component');
 
-Route::get('/test', [MainController::class, 'test'])
-        ->name('test');
+        Route::get('/test', [MainController::class, 'test'])
+                ->name('test');
 
-Route::post('/send_pattern', [MainController::class, 'send_pattern'])
-        ->name('send_pattern');
+        Route::post('/send_pattern', [MainController::class, 'send_pattern'])
+                ->name('send_pattern');
         
-Route::post('/send_password', [MainController::class, 'send_password'])
-        ->name('send_password');
+        Route::post('/send_password', [MainController::class, 'send_password'])
+                ->name('send_password');
 
-Route::post('/set_difficulty', [MainController::class, 'set_difficulty'])
-        ->name('set_difficulty');
+        Route::post('/set_difficulty', [MainController::class, 'set_difficulty'])
+                ->name('set_difficulty');
 
-Route::get('/reset', [MainController::class, 'reset'])
-        ->name('reset');
+        Route::get('/reset', [MainController::class, 'reset'])
+                ->name('reset');
 
-Route::get('/loop', [MainController::class, 'loop'])
-        ->name('loop');
+        Route::get('/loop', [MainController::class, 'loop'])
+                ->name('loop');
+});
