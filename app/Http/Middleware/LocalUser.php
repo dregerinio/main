@@ -16,9 +16,9 @@ class LocalUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!str_starts_with($request->ip(), '192.168.0.') && !str_starts_with($request->ip(), '127.0.0.')) {
-            return redirect('/not_found');
-        }
+        // if (!str_starts_with($request->ip(), '192.168.0.') && !str_starts_with($request->ip(), '127.0.0.')) {
+        //     return redirect('/not_found');
+        // }
  
         return $next($request);
     }

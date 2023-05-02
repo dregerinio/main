@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Components;
 use App\Models\System_parameters;
+use App\Http\Helpers\CommunicationHelper;
 
 class MainController extends Controller
 {
@@ -36,12 +37,35 @@ class MainController extends Controller
     public function activate_component($component_name = "")
     {
         Components::where('title', '=', $component_name)->update(['is_active' => '1', 'signal_sent' => 1]);
+
+        $request_params = [
+            'command' => 'change_state',
+            'parameter' => 1
+        ];
+
+        CommunicationHelper::send_data($component_name, $request_params);
+        return response()->json(['success' => true]);
     }
 
     public function deactivate_component($component_name = '')
     {
         Components::where('title', $component_name)->update(['is_active' => '0', 'signal_sent' => 1]);
-        // Http::get(config('app.system_components')['Component '. $component_number]['url'] . '/deactivate');
+        $request_params = [
+            'command' => 'change_state',
+            'parameter' => 0
+        ];
+
+        CommunicationHelper::send_data($component_name, $request_params);
+        return response()->json(['success' => true]);
+    }
+    
+    public function test(){
+        $request_params = [
+            'command' => 'change_pattern',
+            'parameter' => 'test'
+        ];
+
+        CommunicationHelper::send_data('game_1', $request_params);
     }
 
     public function send_pattern(Request $request)
@@ -58,20 +82,22 @@ class MainController extends Controller
             'parameter' => $patternstring
         ];
 
-        $request_params = json_encode($request_params);
-        // dd($request_params);
-        $request_params = base64_encode($request_params);
-
-        $temp = Http::get('78.130.253.104:1234/' . $request_params);
-
-        // dd($temp->body(), $temp);
-        return response()->json([123 => 123]);
+        CommunicationHelper::send_data('game_1', $request_params);
+        return response()->json(['success' => true]);
     }
 
     public function send_password(Request $request){
         $password = $request->input('data');
         System_parameters::where('parameter', '=', 'password')->update(['value' => $password]);
+
+
+        $request_params = [
+            'command' => 'change_password',
+            'parameter' => $password
+        ];
         // send request
+        CommunicationHelper::send_data('game_2', $request_params);
+        return response()->json(['success' => true]);
     }
 
     public function set_difficulty(Request $request)
@@ -79,7 +105,14 @@ class MainController extends Controller
         $level = $request->input('level');
         System_parameters::where('parameter', '=', 'difficulty')->update(['value' => $level]);
         // send requests
-        return response()->json([123 => 123]);
+        $request_params = [
+            'command' => 'change_difficulty',
+            'parameter' => $level
+
+        ];
+        CommunicationHelper::send_data('game_1', $request_params);
+        CommunicationHelper::send_data('game_2', $request_params);
+        return response()->json(['success' => true]);
     }
 
     function reset(){
@@ -89,6 +122,7 @@ class MainController extends Controller
     }
 
     public function loop(){
+        CommunicationHelper::update_states();
         // get statuses
         $components = [];
         $components_data = Components::all();

@@ -233,32 +233,40 @@ return [
 
     'system_components' => [
         'game_1' => [
-            'getter_url' => 'http://component1.local',
-            'setter_url' => 'http://component1.local'
+            'getter_url' => '78.130.253.104:1234',
+            'setter_url' => '78.130.253.104:1234'
         ],
         'game_2' => [
-            'getter_url' => 'http://component2.local',
-            'setter_url' => 'http://component2.local'
+            'getter_url' => '',
+            'setter_url' => ''
         ],
         'door_1' => [
-            'getter_url' => 'http://component3.local',
-            'setter_url' => 'http://component3.local'
+            'getter_url' => '',
+            'setter_url' => ''
         ],
         'door_2' => [
-            'getter_url' => 'http://component3.local',
-            'setter_url' => 'http://component3.local'
+            'getter_url' => '78.130.253.104:1238',
+            'setter_url' => '78.130.253.104:1238'
+        ],
+        'door_3_button' => [
+            'getter_url' => '78.130.253.104:1236',
+            'setter_url' => '78.130.253.104:1236'
         ],
         'door_3' => [
-            'getter_url' => 'http://component3.local',
-            'setter_url' => 'http://component3.local'
+            'getter_url' => '78.130.253.104:1236',
+            'setter_url' => '78.130.253.104:1236'
         ],
         'door_4' => [
-            'getter_url' => 'http://component3.local',
-            'setter_url' => 'http://component3.local'
+            'getter_url' => '78.130.253.104:1239',
+            'setter_url' => '78.130.253.104:1239'
+        ],
+        'motor_button' => [
+            'getter_url' => '78.130.253.104:1235',
+            'setter_url' => '78.130.253.104:1235'
         ],
         'motor' => [
-            'getter_url' => 'http://component3.local',
-            'setter_url' => 'http://component3.local'
+            'getter_url' => '78.130.253.104:1237',
+            'setter_url' => '78.130.253.104:1237'
         ],
     ]
 ];

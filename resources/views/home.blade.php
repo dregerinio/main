@@ -172,7 +172,7 @@
                                                     <div class="row">
                                                         <button id="door_1_go" onclick="activate_component('door_1')"
                                                             class="col-md-4 offset-1 btn btn-success mt-3">Отвори</button>
-                                                        <button id="door_1_stop" disabled
+                                                        <button id="door_1_stop" onclick="deactivate_component('door_1')"
                                                             class="col-md-4 offset-2 btn btn-danger mt-3">Затвори</button>
                                                     </div>
                                                     <div class="container overflow-hidden">
@@ -192,7 +192,7 @@
                                                     <div class="row">
                                                         <button id="door_2_go" onclick="activate_component('door_2')"
                                                             class="col-md-4 offset-1 btn btn-success mt-3">Отвори</button>
-                                                        <button id="door_2_stop" disabled
+                                                        <button id="door_2_stop" onclick="deactivate_component('door_2')"
                                                             class="col-md-4 offset-2 btn btn-danger mt-3">Затвори</button>
                                                     </div>
                                                     <div class="container overflow-hidden">
@@ -212,7 +212,7 @@
                                                     <div class="row">
                                                         <button id="door_3_go" onclick="activate_component('door_3')"
                                                             class="col-md-4 offset-1 btn btn-success mt-3">Отвори</button>
-                                                        <button id="door_3_stop" disabled
+                                                        <button id="door_3_stop" onclick="deactivate_component('door_3')"
                                                             class="col-md-4 offset-2 btn btn-danger mt-3">Затвори</button>
                                                     </div>
                                                     <div class="container overflow-hidden">
@@ -232,7 +232,7 @@
                                                     <div class="row">
                                                         <button id="door_4_go" onclick="activate_component('door_4')"
                                                             class="col-md-4 offset-1 btn btn-success mt-3">Отвори</button>
-                                                        <button id="door_4_stop" disabled
+                                                        <button id="door_4_stop" onclick="deactivate_component('door_4')"
                                                             class="col-md-4 offset-2 btn btn-danger mt-3">Затвори</button>
                                                     </div>
                                                     <div class="container overflow-hidden">
@@ -362,6 +362,7 @@
                             $("#" + key + "_go").removeClass("btn-success").addClass('btn-default')
                                 .prop("disabled", true);
                             $("#" + key + "_stop").removeClass("btn-default").addClass('btn-danger')
+                                .prop("disabled", false);
                         } else {
                             $("#" + key + "_go").removeClass("btn-default").addClass('btn-success')
                                 .prop("disabled", false);
