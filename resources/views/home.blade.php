@@ -428,7 +428,7 @@
         function send_password() {
             password = $("#password_input").val();
             if(password.length !=6){
-                return
+                // return
             }
 
             $.ajax({
