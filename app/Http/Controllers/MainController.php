@@ -36,7 +36,7 @@ class MainController extends Controller
 
     public function activate_component($component_name = "")
     {
-        Components::where('title', '=', $component_name)->update(['is_active' => '1', 'signal_sent' => 1]);
+        Components::where('title', '=', $component_name)->update(['is_active' => '1', 'signal_sent' => 0]);
 
         $request_params = [
             'command' => 'change_state',
@@ -49,7 +49,7 @@ class MainController extends Controller
 
     public function deactivate_component($component_name = '')
     {
-        Components::where('title', $component_name)->update(['is_active' => '0', 'signal_sent' => 1]);
+        Components::where('title', $component_name)->update(['is_active' => '0', 'signal_sent' => 0]);
         $request_params = [
             'command' => 'change_state',
             'parameter' => 0
@@ -60,12 +60,7 @@ class MainController extends Controller
     }
     
     public function test(){
-        $request_params = [
-            'command' => 'change_pattern',
-            'parameter' => 'test'
-        ];
-
-        CommunicationHelper::send_data('game_1', $request_params);
+        CommunicationHelper::get_data('door_3');
     }
 
     public function send_pattern(Request $request)
@@ -124,6 +119,7 @@ class MainController extends Controller
     public function loop(){
         CommunicationHelper::update_states();
         // get statuses
+        dd('1');
         $components = [];
         $components_data = Components::all();
         foreach($components_data as $component){
@@ -131,32 +127,57 @@ class MainController extends Controller
         }
 
         if($components['game_1']['is_active'] && !$components['door_1']['is_active']){
-            //send_command
+            $request_params = [
+                'command' => 'change_state',
+                'parameter' => 1
+            ];
+    
+            CommunicationHelper::send_data('door_1', $request_params);
             Components::where('title', 'door_1')->update(['is_active' => '1', 'signal_sent' => 1]);
         }
         if($components['game_2']['is_active'] && !$components['door_2']['is_active']){
-            //send_command
+            $request_params = [
+                'command' => 'change_state',
+                'parameter' => 1
+            ];
+    
+            CommunicationHelper::send_data('door_2', $request_params);
             Components::where('title', 'door_2')->update(['is_active' => '1', 'signal_sent' => 1]);
         }
         if($components['door_1']['is_active'] && !$components['door_1']['signal_sent']){
-            //send_command
+            $request_params = [
+                'command' => 'change_state',
+                'parameter' => 1
+            ];
+    
+            CommunicationHelper::send_data('door_1', $request_params);
             Components::where('title', 'door_1')->update(['is_active' => '1', 'signal_sent' => 1]);
         }
         if($components['door_2']['is_active'] && !$components['door_2']['signal_sent']){
-            //send_command
+            $request_params = [
+                'command' => 'change_state',
+                'parameter' => 1
+            ];
+    
+            CommunicationHelper::send_data('door_2', $request_params);
             Components::where('title', 'door_2')->update(['is_active' => '1', 'signal_sent' => 1]);
         }
         if($components['door_3']['is_active'] && !$components['door_3']['signal_sent']){
-            //send_command
+            $request_params = [
+                'command' => 'change_state',
+                'parameter' => 1
+            ];
+    
+            CommunicationHelper::send_data('door_3', $request_params);
             Components::where('title', 'door_3')->update(['is_active' => '1', 'signal_sent' => 1]);
         }
-        if($components['door_4']['is_active'] && !$components['door_4']['signal_sent']){
-            //send_command
-            Components::where('title', 'door_4')->update(['is_active' => '1', 'signal_sent' => 1]);
-        }
-        if(!$components['motor']['signal_sent']){
-            //send_command
-            Components::where('title', 'motor')->update(['signal_sent' => 1]);
-        }
+        // if($components['door_4']['is_active'] && !$components['door_4']['signal_sent']){
+        //     //send_command
+        //     Components::where('title', 'door_4')->update(['is_active' => '1', 'signal_sent' => 1]);
+        // }
+        // if(!$components['motor']['signal_sent']){
+        //     //send_command
+        //     Components::where('title', 'motor')->update(['signal_sent' => 1]);
+        // }
     }
 }

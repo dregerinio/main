@@ -9,10 +9,10 @@ class CommunicationHelper {
         $request_params = json_encode($params);
         $request_params = base64_encode($request_params);
         $url = config('app.system_components')[$component_name]['setter_url'];
-// dd($url . '/' . $request_params, $params);
+        // dd($url . '/' . $request_params, $params);
         $temp = Http::get($url . '/' . $request_params);
-
-        $response = $str = preg_replace('/[^0-9.]+/', '', $temp->body());
+// dd($temp->body());
+        $response = preg_replace('/[^0-9.]+/', '', $temp->body());
         // dd($response);
     }
 
@@ -25,9 +25,10 @@ class CommunicationHelper {
         $request_params = base64_encode($request_params);
         $url = config('app.system_components')[$component_name]['getter_url'];
 
+        // dd($url . '/' . $request_params, $params);
         $temp = Http::get($url . '/' . $request_params);
 
-        dd($temp);
+        return preg_replace('/[^0-9.]+/', '', $temp->body());
     }
 
     public static function update_states(){
@@ -39,11 +40,11 @@ class CommunicationHelper {
 
         foreach(config('app.system_components') as $component_name => $component_data){
             $url = $component_data['getter_url'];
-
+//  dd($url . '/' . $request_params, $params);
             $request = Http::get($url . '/' . $request_params);
             $state =  preg_replace('/[^0-9.]+/', '', $request->body());
 
-            Components::query()->update(['is_active' => $state, 'signal_sent' => 0]);
+            Components::where('title', '=', $component_name)->update(['is_active' => $state, 'signal_sent' => 0]);
         }
     }
 }
