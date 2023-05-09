@@ -41,7 +41,7 @@ class CommunicationHelper {
             $url = $component_data['getter_url'];
 
             $request = Http::get($url . '/' . $request_params);
-            $state = $request->body();
+            $state =  preg_replace('/[^0-9.]+/', '', $request->body());
 
             Components::query()->update(['is_active' => $state, 'signal_sent' => 0]);
         }
