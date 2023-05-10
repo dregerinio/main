@@ -60,7 +60,7 @@ class MainController extends Controller
     }
     
     public function test(){
-        CommunicationHelper::get_data('door_3');
+        return 'lol';
     }
 
     public function send_pattern(Request $request)
@@ -90,7 +90,7 @@ class MainController extends Controller
             'command' => 'change_password',
             'parameter' => $password
         ];
-        // send request
+
         CommunicationHelper::send_data('game_2', $request_params);
         return response()->json(['success' => true]);
     }
@@ -99,7 +99,7 @@ class MainController extends Controller
     {
         $level = $request->input('level');
         System_parameters::where('parameter', '=', 'difficulty')->update(['value' => $level]);
-        // send requests
+
         $request_params = [
             'command' => 'change_difficulty',
             'parameter' => $level
@@ -111,7 +111,7 @@ class MainController extends Controller
     }
 
     function reset(){
-        //send requests + set dificulty
+        CommunicationHelper::reset();
         Components::query()->update(['is_active' => 0, 'signal_sent' => 0]);
         Components::where(['title' => 'motor'])->update(['signal_sent' => 1]);
     }
@@ -119,7 +119,6 @@ class MainController extends Controller
     public function loop(){
         CommunicationHelper::update_states();
         // get statuses
-        dd('1');
         $components = [];
         $components_data = Components::all();
         foreach($components_data as $component){

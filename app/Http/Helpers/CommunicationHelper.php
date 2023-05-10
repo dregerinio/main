@@ -16,6 +16,23 @@ class CommunicationHelper {
         // dd($response);
     }
 
+    public static function test(){
+        return 'kek';
+    }
+
+    public static function reset(){
+        $request_params = [
+            'command' => 'change_state',
+            'parameter' => 0
+        ];
+
+        self::send_data('game_1', $request_params);
+        self::send_data('game_2', $request_params);
+        self::send_data('door_1', $request_params);
+        self::send_data('door_2', $request_params);
+        self::send_data('door_3', $request_params);
+    }
+
     public static function get_data($component_name){
         $params = [
             'command' => 'get_state',
@@ -25,7 +42,7 @@ class CommunicationHelper {
         $request_params = base64_encode($request_params);
         $url = config('app.system_components')[$component_name]['getter_url'];
 
-        // dd($url . '/' . $request_params, $params);
+
         $temp = Http::get($url . '/' . $request_params);
 
         return preg_replace('/[^0-9.]+/', '', $temp->body());
