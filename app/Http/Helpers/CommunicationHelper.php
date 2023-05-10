@@ -59,10 +59,7 @@ class CommunicationHelper {
             $url = $component_data['getter_url'];
 //  dd($url . '/' . $request_params, $params);
             $request = Http::get($url . '/' . $request_params);
-            $state = CommunicationHelper::get_data($component_name);
-            // if($component_name == 'door_1'){
-            //     dd($url . '/' . $request_params, $params, $state);
-            // }
+            $state =  preg_replace('/[^0-9.]+/', '', $request->body());
 
             Components::where('title', '=', $component_name)->update(['is_active' => $state, 'signal_sent' => 0]);
         }
